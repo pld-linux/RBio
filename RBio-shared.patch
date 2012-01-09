@@ -1,0 +1,81 @@
+--- RBio/Lib/Makefile.orig	2012-01-09 17:07:19.559765294 +0100
++++ RBio/Lib/Makefile	2012-01-09 17:13:03.056443463 +0100
+@@ -10,14 +10,14 @@
+ 
+ C = $(CC) $(CF)
+ 
+-all: librbio.a
++all: librbio.la
+ 
+-library: librbio.a
++library: librbio.la
+ 
+ purge: distclean
+ 
+ distclean: clean
+-	- $(RM) librbio.a
++	- $(RM) librbio.la
+ 
+ clean:
+ 	- $(RM) $(CLEAN)
+@@ -32,22 +32,25 @@
+ # The 7 CHOLMOD library modules (int, double)
+ #-------------------------------------------------------------------------------
+ 
+-CORE = RBio.o
++CORE = RBio_i.o
+ 
+ DI = $(CORE)
+ 
+-LCORE = RBio_long.o
++LCORE = RBio.o
+ 
+ DL = $(LCORE)
+ 
+ #-------------------------------------------------------------------------------
+ 
+ # to compile just the double/int version, use OBJ = $(DI)
+-OBJ = $(DI)
++OBJ = $(DI) $(DL)
+ 
+-librbio.a: $(OBJ)
+-	$(ARCHIVE)  librbio.a $(OBJ)
+-	- $(RANLIB) librbio.a
++librbio.la: $(OBJ)
++	libtool --tag=CC --mode=link $(CC) $(LDFLAGS) $(CFLAGS) -o librbio.la -rpath $(libdir) $(OBJ:.o=.lo) -lufconfig
++
++install: librbio.la
++	install -d $(DESTDIR)$(libdir)
++	libtool --mode=install cp librbio.la $(DESTDIR)$(libdir)/librbio.la
+ 
+ $(OBJ): $(INC)
+ 
+@@ -56,8 +59,8 @@
+ #-------------------------------------------------------------------------------
+ 
+ RBio.o: ../Source/RBio.c
+-	$(C) -c $(I) $<
++	libtool --tag=CC --mode=compile $(C) -c $(I) $< -o RBio.lo
+ 
+ RBio_i.o: ../Source/RBio.c
+-	$(C) -c -DINT $(I) $<
++	libtool --tag=CC --mode=compile $(C) -c -DINT $(I) $< -o RBio_i.lo
+ 
+--- RBio/Demo/Makefile.orig	2012-01-09 17:15:23.029781482 +0100
++++ RBio/Demo/Makefile	2012-01-09 17:51:37.443187623 +0100
+@@ -6,7 +6,7 @@
+ 
+ include /usr/share/misc/UFconfig.mk
+ 
+-LIB = ../Lib/librbio.a -lufconfig
++LIB = ../Lib/librbio.la -lufconfig
+ 
+ C = $(CC) $(CF)
+ 
+@@ -32,5 +32,5 @@
+ I = -I../Include
+ 
+ RBdemo: library RBdemo.c
+-	$(C) -o RBdemo $(I) RBdemo.c $(LIB)
++	libtool --tag=CC --mode=link $(C) -o RBdemo $(I) RBdemo.c $(LIB)
+ 

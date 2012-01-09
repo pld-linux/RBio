@@ -1,0 +1,58 @@
+--- RBio/Makefile.orig	2011-12-07 23:20:05.000000000 +0100
++++ RBio/Makefile	2012-01-08 14:28:27.806553147 +0100
+@@ -6,7 +6,7 @@
+ 
+ default: all
+ 
+-include ../UFconfig/UFconfig.mk
++include /usr/share/misc/UFconfig.mk
+ 
+ # Compile the C-callable libraries and the Demo programs.
+ all:
+--- RBio/Lib/Makefile.orig	2011-12-08 18:41:19.000000000 +0100
++++ RBio/Lib/Makefile	2012-01-08 14:38:26.373239855 +0100
+@@ -6,7 +6,7 @@
+ 
+ ccode: all
+ 
+-include ../../UFconfig/UFconfig.mk
++include /usr/share/misc/UFconfig.mk
+ 
+ C = $(CC) $(CF)
+ 
+@@ -51,7 +51,7 @@
+ 
+ $(OBJ): $(INC)
+ 
+-I = -I../Include -I../../UFconfig
++I = -I../Include
+ 
+ #-------------------------------------------------------------------------------
+ 
+--- RBio/Demo/Makefile.orig	2011-12-08 20:17:08.000000000 +0100
++++ RBio/Demo/Makefile	2012-01-08 14:39:56.876576218 +0100
+@@ -4,9 +4,9 @@
+ 
+ default: all
+ 
+-include ../../UFconfig/UFconfig.mk
++include /usr/share/misc/UFconfig.mk
+ 
+-LIB = ../Lib/librbio.a ../../UFconfig/libufconfig.a
++LIB = ../Lib/librbio.a -lufconfig
+ 
+ C = $(CC) $(CF)
+ 
+@@ -26,11 +26,10 @@
+ 
+ #-------------------------------------------------------------------------------
+ library:
+-	( cd ../../UFconfig ; $(MAKE) )
+ 	( cd ../Lib ; $(MAKE) )
+ #-------------------------------------------------------------------------------
+ 
+-I = -I../Include -I../../UFconfig
++I = -I../Include
+ 
+ RBdemo: library RBdemo.c
+ 	$(C) -o RBdemo $(I) RBdemo.c $(LIB)
