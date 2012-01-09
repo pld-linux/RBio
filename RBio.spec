@@ -1,5 +1,5 @@
 Summary:	RBio: read/write matrices in Rutherford/Boeing format
-Summary(pl.UTF-8):	RBio: manipulacja macierzami zapisany w formacie Rutherforda/Boeinga
+Summary(pl.UTF-8):	RBio: odczyt/zapis macierzy zapisanych w formacie Rutherforda-Boeinga
 Name:		RBio
 Version:	2.0.2
 Release:	1
