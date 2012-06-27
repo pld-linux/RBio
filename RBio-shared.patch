@@ -42,7 +42,7 @@
 -	$(ARCHIVE)  librbio.a $(OBJ)
 -	- $(RANLIB) librbio.a
 +librbio.la: $(OBJ)
-+	libtool --tag=CC --mode=link $(CC) $(LDFLAGS) $(CFLAGS) -o librbio.la -rpath $(libdir) $(OBJ:.o=.lo) -lufconfig
++	libtool --tag=CC --mode=link $(CC) $(LDFLAGS) $(CFLAGS) -o librbio.la -rpath $(libdir) $(OBJ:.o=.lo) -lsuitesparseconfig
 +
 +install: librbio.la
 +	install -d $(DESTDIR)$(libdir)
@@ -61,14 +61,14 @@
 -	$(C) -c -DINT $(I) $<
 +	libtool --tag=CC --mode=compile $(C) -c -DINT $(I) $< -o RBio_i.lo
  
---- RBio/Demo/Makefile.orig	2012-01-09 17:15:23.029781482 +0100
-+++ RBio/Demo/Makefile	2012-01-09 17:51:37.443187623 +0100
+--- RBio/Demo/Makefile.orig	2012-06-27 21:43:09.000000000 +0200
++++ RBio/Demo/Makefile	2012-06-27 21:43:50.571402567 +0200
 @@ -6,7 +6,7 @@
  
- include /usr/share/misc/UFconfig.mk
+ include /usr/share/misc/SuiteSparse_config.mk
  
--LIB = ../Lib/librbio.a -lufconfig
-+LIB = ../Lib/librbio.la -lufconfig
+-CLIB = ../Lib/librbio.a -lsuitesparseconfig $(LIB)
++CLIB = ../Lib/librbio.la -lsuitesparseconfig $(LIB)
  
  C = $(CC) $(CF)
  
@@ -76,6 +76,6 @@
  I = -I../Include
  
  RBdemo: library RBdemo.c
--	$(C) -o RBdemo $(I) RBdemo.c $(LIB)
-+	libtool --tag=CC --mode=link $(C) -o RBdemo $(I) RBdemo.c $(LIB)
+-	$(C) -o RBdemo $(I) RBdemo.c $(CLIB)
++	libtool --tag=CC --mode=link $(C) $(LDFLAGS) -o RBdemo $(I) RBdemo.c $(CLIB)
  

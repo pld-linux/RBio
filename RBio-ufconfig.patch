@@ -4,8 +4,8 @@
  
  default: all
  
--include ../UFconfig/UFconfig.mk
-+include /usr/share/misc/UFconfig.mk
+-include ../SuiteSparse_config/SuiteSparse_config.mk
++include /usr/share/misc/SuiteSparse_config.mk
  
  # Compile the C-callable libraries and the Demo programs.
  all:
@@ -15,8 +15,8 @@
  
  ccode: all
  
--include ../../UFconfig/UFconfig.mk
-+include /usr/share/misc/UFconfig.mk
+-include ../../SuiteSparse_config/SuiteSparse_config.mk
++include /usr/share/misc/SuiteSparse_config.mk
  
  C = $(CC) $(CF)
  
@@ -24,22 +24,22 @@
  
  $(OBJ): $(INC)
  
--I = -I../Include -I../../UFconfig
+-I = -I../Include -I../../SuiteSparse_config
 +I = -I../Include
  
  #-------------------------------------------------------------------------------
  
---- RBio/Demo/Makefile.orig	2011-12-08 20:17:08.000000000 +0100
-+++ RBio/Demo/Makefile	2012-01-08 14:39:56.876576218 +0100
+--- RBio/Demo/Makefile.orig	2012-05-27 03:17:26.000000000 +0200
++++ RBio/Demo/Makefile	2012-06-27 21:42:48.921405153 +0200
 @@ -4,9 +4,9 @@
  
  default: all
  
--include ../../UFconfig/UFconfig.mk
-+include /usr/share/misc/UFconfig.mk
+-include ../../SuiteSparse_config/SuiteSparse_config.mk
++include /usr/share/misc/SuiteSparse_config.mk
  
--LIB = ../Lib/librbio.a ../../UFconfig/libufconfig.a
-+LIB = ../Lib/librbio.a -lufconfig
+-CLIB = ../Lib/librbio.a ../../SuiteSparse_config/libsuitesparseconfig.a $(LIB)
++CLIB = ../Lib/librbio.a -lsuitesparseconfig $(LIB)
  
  C = $(CC) $(CF)
  
@@ -47,12 +47,12 @@
  
  #-------------------------------------------------------------------------------
  library:
--	( cd ../../UFconfig ; $(MAKE) )
+-	( cd ../../SuiteSparse_config ; $(MAKE) )
  	( cd ../Lib ; $(MAKE) )
  #-------------------------------------------------------------------------------
  
--I = -I../Include -I../../UFconfig
+-I = -I../Include -I../../SuiteSparse_config
 +I = -I../Include
  
  RBdemo: library RBdemo.c
- 	$(C) -o RBdemo $(I) RBdemo.c $(LIB)
+ 	$(C) -o RBdemo $(I) RBdemo.c $(CLIB)

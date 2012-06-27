@@ -1,16 +1,16 @@
 Summary:	RBio: read/write matrices in Rutherford/Boeing format
 Summary(pl.UTF-8):	RBio: odczyt/zapis macierzy zapisanych w formacie Rutherforda-Boeinga
 Name:		RBio
-Version:	2.0.2
+Version:	2.1.0
 Release:	1
 License:	GPL v2+
 Group:		Libraries
 Source0:	http://www.cise.ufl.edu/research/sparse/RBio/%{name}-%{version}.tar.gz
-# Source0-md5:	fd469b4ccac07c771c10c3046d593791
+# Source0-md5:	78fd49bbadaaeac5001aa56202173e47
 Patch0:		%{name}-ufconfig.patch
 Patch1:		%{name}-shared.patch
 URL:		http://www.cise.ufl.edu/research/sparse/RBio/
-BuildRequires:	UFconfig-devel >= 3.7.0
+BuildRequires:	SuiteSparse_config-devel >= 4.0.0
 BuildRequires:	libtool >= 2:1.5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -32,7 +32,7 @@ Summary:	Header files for RBio library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki RBio
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	UFconfig-devel >= 3.7.0
+Requires:	SuiteSparse_config-devel >= 4.0.0
 
 %description devel
 Header files for RBio library.
