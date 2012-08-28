@@ -1,12 +1,12 @@
 Summary:	RBio: read/write matrices in Rutherford/Boeing format
 Summary(pl.UTF-8):	RBio: odczyt/zapis macierzy zapisanych w formacie Rutherforda-Boeinga
 Name:		RBio
-Version:	2.1.0
+Version:	2.1.1
 Release:	1
 License:	GPL v2+
 Group:		Libraries
 Source0:	http://www.cise.ufl.edu/research/sparse/RBio/%{name}-%{version}.tar.gz
-# Source0-md5:	78fd49bbadaaeac5001aa56202173e47
+# Source0-md5:	07495e73e29683a8b348811a34e0e396
 Patch0:		%{name}-ufconfig.patch
 Patch1:		%{name}-shared.patch
 URL:		http://www.cise.ufl.edu/research/sparse/RBio/
